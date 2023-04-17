@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Productos</title>
+</head>
+<body>
+	<h1>Lista de productos</h1>
+	<ul id="product-list">
+	</ul>
+	<script>
+		fetch('/products')
+			.then(response => response.json())
+			.then(products => {
+				const productList = document.getElementById('product-list');
+				products.forEach(product => {
+					const listItem = document.createElement('li');
+					listItem.innerHTML = `
+						<h2>${product.name}</h2>
+						<p>ID: ${product.id}</p>
+						<p>Modelo: ${product.model}</p>
+						<p>Precio: ${product.price}</p>
+					`;
+					productList.appendChild(listItem);
+				});
+			})
+			.catch(error => console.error(error));
+	</script>
+</body>
+</html>
